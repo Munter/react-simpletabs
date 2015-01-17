@@ -31,12 +31,11 @@ var Tabs = React.createClass({
   },
   render () {
     var menuItems = this._getMenuItems();
-    var panelsList = this._getPanels();
 
     return (
       <div className={this.props.baseClass}>
         {menuItems}
-        {panelsList}
+        {this.props.children[this.state.tabActive - 1]}
       </div>
     );
   },
@@ -44,7 +43,7 @@ var Tabs = React.createClass({
     var id = parseInt(e.target.getAttribute('data-tab-id'));
     var onAfterChange = this.props.onAfterChange;
     var onBeforeChange = this.props.onBeforeChange;
-    var $selectedPanel = this.refs['tab-panel-' + id];
+    var $selectedPanel = this.refs['panel'];
     var $selectedTabMenu = this.refs['tab-menu-' + id];
 
     if (onBeforeChange) {
@@ -88,23 +87,6 @@ var Tabs = React.createClass({
         <ul className='tabs-menu'>{$menuItems}</ul>
       </nav>
     );
-  },
-  _getPanels () {
-    var $panels = this.props.children.map(($panel, index) => {
-      var ref = 'tab-panel-${index + 1}';
-      var classes = classSet({
-        'tabs-panel': true,
-        'is-active': this.state.tabActive === (index + 1)
-      });
-
-      return (
-        <article ref={ref} key={index} className={classes}>{$panel}</article>
-      );
-    });
-
-    return (
-      <section className='tabs-panels'>{$panels}</section>
-    );
   }
 });
 
@@ -118,7 +100,7 @@ Tabs.Panel = React.createClass({
     ]).isRequired
   },
   render () {
-    return <div>{this.props.children}</div>;
+    return <section className="tabs-panel" ref="panel">{this.props.children}</section>;
   }
 });
 

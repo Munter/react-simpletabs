@@ -58,10 +58,5 @@ $tabs-navigation-height: 50px;
 // ----------------------------------------------------------------------------
 
 .tabs-panel {
-  display: none;
   padding: 30px;
-}
-
-.tabs-panel.is-active {
-  display: block;
 }
