@@ -14,13 +14,17 @@ var Tabs = React.createClass({
     tabActive: React.PropTypes.number,
     onBeforeChange: React.PropTypes.func,
     onAfterChange: React.PropTypes.func,
+    baseClass: React.PropTypes.string,
     children: React.PropTypes.oneOfType([
       React.PropTypes.array,
       React.PropTypes.element
     ]).isRequired
   },
   getDefaultProps () {
-    return { tabActive: 1 };
+    return {
+      tabActive: 1,
+      baseClass: 'tabs'
+    };
   },
   getInitialState () {
     return { tabActive: this.props.tabActive };
@@ -30,7 +34,7 @@ var Tabs = React.createClass({
     var panelsList = this._getPanels();
 
     return (
-      <div className='tabs'>
+      <div className={this.props.baseClass}>
         {menuItems}
         {panelsList}
       </div>
